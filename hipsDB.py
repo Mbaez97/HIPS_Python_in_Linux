@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import hashlib
-#import md5
 import psycopg2
 import os
 from os import listdir
@@ -9,18 +8,23 @@ import getpass
 
 
 
-#Falta encriptacion
-conn_data = {'database':'HIPS', 'user':'postgres', 'password':'Majubafe29797'};
-conn = psycopg2.connect(host="localhost", database=conn_data['database'], user=conn_data['user'], password=conn_data['password'])
-cursor = conn.cursor()
-
-#Eliminamos y volvemos a crear la tabla en la base de datos, mas facil que identificar con ids o otras cosas
-cursor.execute("DROP TABLE IF EXISTS binarios_sistema")
-cursor.execute("CREATE TABLE binarios_sistema(id SERIAL, directorio VARCHAR, md5sum VARCHAR)")
 
 
-dir_binarios = ['/etc/passwd','/etc/shadow','/bin','/usr/bin','/usr/sbin']
-#los directorios de los  ya las tenemos dentro de modulos_necesarios en la lista dir_binarios
+def main():
+	dir_binarios = ['/etc/passwd','/etc/shadow','/bin','/usr/bin','/usr/sbin']
+	#los directorios de los  ya las tenemos dentro de modulos_necesarios en la lista dir_binarios
+	#Falta encriptacion
+	conn_data = {'database':'HIPS', 'user':'postgres', 'password':'Majubafe29797'};
+	conn = psycopg2.connect(host="localhost", database=conn_data['database'], user=conn_data['user'], password=conn_data['password'])
+	cursor = conn.cursor()
+
+	#Eliminamos y volvemos a crear la tabla en la base de datos, mas facil que identificar con ids o otras cosas
+	cursor.execute("DROP TABLE IF EXISTS binarios_sistema")
+	cursor.execute("CREATE TABLE binarios_sistema(id SERIAL, directorio VARCHAR, md5sum VARCHAR)")
+	carga_binarios(dir_binarios)
+	print("Los Binarios del sistema fueron guardados correctamente en la base de datos")
+	conn.close()
+
 
 def carga_binarios(dir_binarios):
 	lista_directorios = [] #Esta lista utilizaremos para extraer las firmas md5 de cada archivo
@@ -42,7 +46,7 @@ def carga_binarios(dir_binarios):
 				print("Error: {}".format(error))
 			conn.commit()
 
-carga_binarios(dir_binarios)
-conn.close()
+
+
 
 
