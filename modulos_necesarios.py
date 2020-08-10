@@ -3,8 +3,6 @@
 import psycopg2 as pgDB
 #import sys
 import re
-#Modulo que nos facilita algoritmos de resumen de mensajes MD5
-import md5
 import os
 import string
 import datetime
@@ -31,13 +29,23 @@ mensj['To'] = "marcelobaezparaguay@gmail.com"#En este campo estaria el correo de
 
 #Actualmente estamos buscando un metodo de encriptacion para los datos, mientras utilizamos los datos en crudo
 #Valores para la conexion a la base de datos
-conn_data = {'host':'localhost', 'database':'HIPS', 'user':'postgres', 'password':'Majubafe29797'};
+conn_data = {'host':'localhost', 'database':'HIPS', 'user':'postgres'};
+#Recuperamos la contrasenha encriptada
+os.system("openssl enc -a-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenhaBD.txt.enc -out contrasenhaBD.txt")
+contrasenhaBD = open("contrasenhaBD.txt")
+pass = contrasenhaBD.read().replace('\n', '')
+contrasenhaBD.close()
+os.system("rm -rf contrasenhaBD.txt)
+conn = psycopg2.connect(host=conn_data['host'], database=conn_data['database'], user=conn_data['user'], password=pass)
+cursor = conn.cursor()
+#base de datos conectada          
+
+          
 #Logs generados durante la ejecucion de este sript, de tal forma de enviar un solo mail con toda la informacion
 lista_log = [] 
 #Bandera que representa si debe o no enviar por mail los logs generados
 enviarLogName = False
-conn = psycopg2.connect(host=conn_data['host'], database=conn_data['database'], user=conn_data['user'], password=conn_data['password'])
-cursor = conn.cursor()
+
 dir_binarios = ['/etc/passwd','/etc/shadow','/bin','/usr/bin','/usr/sbin']
 
 
