@@ -25,11 +25,11 @@ def comprobar_usuarios_conectados():
                         fecha = time.strftime("%d/%m/%Y")
                         hora = time.strftime("%H:%M:%S")
                         entrada = fecha + ' ---> ' + hora + '\n\n* ' + mensaje + '\n'
-                        os.system("openssl enc -aes-256-cbc -d -in pass_file.txt.enc -out pass_file.txt -k PASS")
-                        pass_file = open("pass_file.txt")
+                        os.system("openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_correo.txt.enc -out contrasenha_correo.txt")
+                        pass_file = open("contrasenha_correo.txt")
                         input_pass_file = pass_file.read().replace('\n','')
                         pass_file.close()
-                        os.system("rm -rf pass_file.txt")
+                        os.system("rm -rf contrasenha_correo.txt")
                         msg['Subject'] = "ALARMA EN HIDS!"
                         msg.attach(MIMEText(entrada, 'plain'))
                         server = smtplib.SMTP('smtp.gmail.com: 587')
