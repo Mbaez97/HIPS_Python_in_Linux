@@ -1,4 +1,4 @@
-from modulos import *
+from modulos_necesarios import *
 
 def acces_logCMP():
 	archivo = open('/var/log/httpd/access_log')
