@@ -20,7 +20,7 @@ import commands
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta
-
+N = 6 # MAximo intentos de login
 #Establecemos algunos valores que usaremos a lo largo de los distintos modulos del hips
 maxColaMail = 120 #Maxima cola de correos
 mensj = MIMEMultipart()
