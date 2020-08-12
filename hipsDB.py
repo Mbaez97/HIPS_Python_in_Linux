@@ -21,9 +21,8 @@ contrasenha_BD = open("contrasenha_BD.txt")
 connpass_BD = contrasenha_BD.read().replace('\n','')#copiamos el contenido del archivo que abrimos exceptuando los saltos y los espacios vacios
 contrasenha_BD.close()#cerramos el archivo
 os.system("rm -rf contrasenha_BD.txt")#Eliminamos la contraseña desencriptada
-	
-conn_data = {'database':'HIPS', 'user':'postgres'};
-conn = psycopg2.connect(host="localhost", dbname=conn_data['database'], user=conn_data['user'], password=connpass_BD)
+conn_data = {'host':'localhost', 'database':'hips2020baezoh', 'user':'HIPS2020'};
+conn = psycopg2.connect(host=['host'], dbname=conn_data['database'], user=conn_data['user'], password=connpass_BD)
 
 
 def carga_binarios(dir_binarios):
