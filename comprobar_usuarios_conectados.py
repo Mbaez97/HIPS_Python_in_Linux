@@ -1,3 +1,5 @@
+from modulos_necesarios import *
+from enviar_mail import enviar_correo
 def comprobar_usuarios_conectados():
 
         #Extrae la lista de usuarios conectados actuales con su origen/direccion
@@ -25,18 +27,19 @@ def comprobar_usuarios_conectados():
                         fecha = time.strftime("%d/%m/%Y")
                         hora = time.strftime("%H:%M:%S")
                         entrada = fecha + ' ---> ' + hora + '\n\n* ' + mensaje + '\n'
-                        os.system("openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_correo.txt.enc -out contrasenha_correo.txt")
-                        pass_file = open("contrasenha_correo.txt")
-                        input_pass_file = pass_file.read().replace('\n','')
-                        pass_file.close()
-                        os.system("rm -rf contrasenha_correo.txt")
-                        msg['Subject'] = "ALARMA EN HIDS!"
-                        msg.attach(MIMEText(entrada, 'plain'))
-                        server = smtplib.SMTP('smtp.gmail.com: 587')
-                        server.starttls()
-                        server.login(msg['From'], input_pass_file)
-                        server.sendmail(msg['From'], msg['To'], msg.as_string())
-                        server.quit()
+                        enviar_correo(entrada, 'Alarma HIPS')
+                        #os.system("openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_correo.txt.enc -out contrasenha_correo.txt")
+                        #pass_file = open("contrasenha_correo.txt")
+                        #input_pass_file = pass_file.read().replace('\n','')
+                        #pass_file.close()
+                        #os.system("rm -rf contrasenha_correo.txt")
+                        #msg['Subject'] = "Alarma HIPS"
+                        #msg.attach(MIMEText(entrada, 'plain'))
+                        #server = smtplib.SMTP('smtp.gmail.com: 587')
+                        #server.starttls()
+                        #server.login(msg['From'], input_pass_file)
+                        #server.sendmail(msg['From'], msg['To'], msg.as_string())
+                        #server.quit()
                         archivo_cola = open('/var/spool/mqueue/mail_recibidos.txt','a')
                         archivo_cola.write(fecha + ' | ' + hora + ' | ' + 'From:' + msg['From'] + '\n')
                         archivo_cola.close()
