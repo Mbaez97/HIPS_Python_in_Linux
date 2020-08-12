@@ -1,5 +1,5 @@
 from modulos_necesarios import *
-
+from enviar_mail import enviar_correo
 def acces_logCMP():
 	archivo = open('/var/log/httpd/access_log')
 	ip_login = []
@@ -29,21 +29,22 @@ def acces_logCMP():
 					hips_log = open('/var/log/hips/acces_hips.log', 'r+')
 					if not entrada_tmp in hips_log.read().split(os.linesep):
 						hips_log.write(entrada_tmp + '\n')
+						enviar_correo(entrada_tmp, 'Alarma HIPS')
 						#Recuparmos la contraseña del servidor de correos de gmail para enviar un correo al administrador del sistema en este caso
 						#utilizamos mi correo
-						os.system("openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_correo.txt.enc -out contrasenha_correo.txt")
-						contrasenha_correo = open("contrasenha_correo.txt")#Obtenemos nuestra contraseña cifrada del servidor de correos gmail
-						imput = contrasenha_correo.read().replace('\n','')#La guardamos en la variable imput para su uso
-						msg['Subject'] = "HIPS_alarma"
-						msg.attach(MIMEText(entrada_tmp, 'plain')) #cargamos es el mensaje de aviso 
-						alerta = smtplib.SMTP('smtpl.gmail.com: 587')#Iniciamos el servirdor SMTP en el puerto 587
-						alerta.starttls()
-						alerta.login(msg['From'], imput)
-						alerta.sendmail(msg['From'], msg['To'], msg.as_string())
-						alerta.quit()
+						#os.system("openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_correo.txt.enc -out contrasenha_correo.txt")
+						#contrasenha_correo = open("contrasenha_correo.txt")#Obtenemos nuestra contraseña cifrada del servidor de correos gmail
+						#imput = contrasenha_correo.read().replace('\n','')#La guardamos en la variable imput para su uso
+						#msg['Subject'] = "HIPS_alarma"
+						#msg.attach(MIMEText(entrada_tmp, 'plain')) #cargamos es el mensaje de aviso 
+						#alerta = smtplib.SMTP('smtpl.gmail.com: 587')#Iniciamos el servirdor SMTP en el puerto 587
+						#alerta.starttls()
+						#alerta.login(msg['From'], imput)
+						#alerta.sendmail(msg['From'], msg['To'], msg.as_string())
+						#alerta.quit()
 						#Cerramos el archivo que contiene la contraseña del correo y eliminamos el archivo que contiene la contraseña cifrada
-						contrasenha_correo.close()
-						os.system("rm -rf contrasenha_correo.txt")
+						#contrasenha_correo.close()
+						#os.system("rm -rf contrasenha_correo.txt")
 						#Enviamos un aviso a traves de la terminal
 						os.system('echo "\nUna ip intento modificar algo en /tmp/ \n Revise el Correo del administrador"')
 
@@ -68,21 +69,22 @@ def acces_logCMP():
 			hips_log = open('/var/log/hips/acces_hips.log', 'r+')	
 			if not entrada_acceslog_http in hips_log.read().split(os.linesep):
 				hips_log.write(entrada_acceslog_http + '\n')#guardamos en el archivo para enviar el informe
+				enviar_correo(entrada_acceslog_http, 'Alarma HIPS')
 				#Recuparmos la contraseña del servidor de correos de gmail para enviar un correo al administrador del sistema en este caso
 				#utilizamos mi correo
-				os.system("openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_correo.txt.enc -out contrasenha_correo.txt")
-				contrasenha_correo = open("contrasenha_correo.txt")#Obtenemos nuestra contraseña cifrada del servidor de correos gmail
-				imput = contrasenha_correo.read().replace('\n','')#La guardamos en la variable imput para su uso
-				msg['Subject'] = "HIPS_alarma"
-				msg.attach(MIMEText(entrada_acceslog_http, 'plain')) #cargamos es el mensaje de aviso 
-				alerta = smtplib.SMTP('smtpl.gmail.com: 587')#Iniciamos el servirdor SMTP en el puerto 587
-				alerta.starttls()
-				alerta.login(msg['From'], imput)
-				alerta.sendmail(msg['From'], msg['To'], msg.as_string())
-				alerta.quit()
+				#os.system("openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_correo.txt.enc -out contrasenha_correo.txt")
+				#contrasenha_correo = open("contrasenha_correo.txt")#Obtenemos nuestra contraseña cifrada del servidor de correos gmail
+				#imput = contrasenha_correo.read().replace('\n','')#La guardamos en la variable imput para su uso
+				#msg['Subject'] = "HIPS_alarma"
+				#msg.attach(MIMEText(entrada_acceslog_http, 'plain')) #cargamos es el mensaje de aviso 
+				#alerta = smtplib.SMTP('smtpl.gmail.com: 587')#Iniciamos el servirdor SMTP en el puerto 587
+				#alerta.starttls()
+				#alerta.login(msg['From'], imput)
+				#alerta.sendmail(msg['From'], msg['To'], msg.as_string())
+				#alerta.quit()
 				#Cerramos el archivo que contiene la contraseña del correo y eliminamos el archivo que contiene la contraseña cifrada
-				contrasenha_correo.close()
-				os.system("rm -rf contrasenha_correo.txt")
+				#contrasenha_correo.close()
+				#os.system("rm -rf contrasenha_correo.txt")
 				#Enviamos un aviso a traves de la terminal
 				os.system('echo "\nUna ip supero el numero maximo de login \n Revise el Correo del administrador"')
 			hips_log.close()
@@ -101,21 +103,22 @@ def acces_logCMP():
 			hips_log = open('/var/log/hips/acces_hips.log', 'r+')	
 			if not entrada_acceslog_404 in hips_log.read().split(os.linesep):
 				hips_log.write(entrada_acceslog_404+ '\n')#guardamos en el archivo para enviar el informe
+				enviar_correo(entrada_acceslog_404, 'Alarma HIPS')
 				#Recuparmos la contraseña del servidor de correos de gmail para enviar un correo al administrador del sistema en este caso
 				#utilizamos mi correo
-				os.system("openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_correo.txt.enc -out contrasenha_correo.txt")
-				contrasenha_correo = open("contrasenha_correo.txt")#Obtenemos nuestra contraseña cifrada del servidor de correos gmail
-				imput = contrasenha_correo.read().replace('\n','')#La guardamos en la variable imput para su uso
-				msg['Subject'] = "HIPS_alarma"
-				msg.attach(MIMEText(entrada_acceslog_404, 'plain')) #cargamos es el mensaje de aviso 
-				alerta = smtplib.SMTP('smtpl.gmail.com: 587')#Iniciamos el servirdor SMTP en el puerto 587
-				alerta.starttls()
-				alerta.login(msg['From'], imput)
-				alerta.sendmail(msg['From'], msg['To'], msg.as_string())
-				alerta.quit()
+				#os.system("openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_correo.txt.enc -out contrasenha_correo.txt")
+				#contrasenha_correo = open("contrasenha_correo.txt")#Obtenemos nuestra contraseña cifrada del servidor de correos gmail
+				#imput = contrasenha_correo.read().replace('\n','')#La guardamos en la variable imput para su uso
+				#msg['Subject'] = "HIPS_alarma"
+				#msg.attach(MIMEText(entrada_acceslog_404, 'plain')) #cargamos es el mensaje de aviso 
+				#alerta = smtplib.SMTP('smtpl.gmail.com: 587')#Iniciamos el servirdor SMTP en el puerto 587
+				#alerta.starttls()
+				#alerta.login(msg['From'], imput)
+				#alerta.sendmail(msg['From'], msg['To'], msg.as_string())
+				#alerta.quit()
 				#Cerramos el archivo que contiene la contraseña del correo y eliminamos el archivo que contiene la contraseña cifrada
-				contrasenha_correo.close()
-				os.system("rm -rf contrasenha_correo.txt")
+				#contrasenha_correo.close()
+				#os.system("rm -rf contrasenha_correo.txt")
 				#Enviamos un aviso a traves de la terminal
 				os.system('echo "\nUna ip supero el numero maximo de de intentos de ingreso a paginas inexistentes  \n Revise el Correo del administrador"')
 			hips_log.close()

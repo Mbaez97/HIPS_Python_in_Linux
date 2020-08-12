@@ -14,7 +14,7 @@ def comprueba_cola_correo():
                 fecha = time.strftime("%d/%m/%Y")
                 hora = time.strftime("%H:%M:%S")
                 entrada = fecha + ' ---> ' + hora + '\n * ' + mensaje + '\n\n'
-                enviar_correo(mensaje,'Alarma HIPS')
+                enviar_correo(entrada,'Alarma HIPS')
                 archivo_cola = open('/var/spool/mqueue/mail_recibidos.txt','a')
                 archivo_cola.write(fecha + ' | ' + hora + ' | ' + 'From:' + msg['From'] + '\n')
                 archivo_cola.close()

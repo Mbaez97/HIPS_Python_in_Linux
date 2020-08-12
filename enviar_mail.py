@@ -1,4 +1,5 @@
 # import necessary packages
+from modulos_necesarios import *
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
@@ -19,7 +20,7 @@ def enviar_correo(msg_a_enviar,subject):
         server = smtplib.SMTP('smtp.gmail.com: 587')
         server.starttls()
         # Login Credentials for sending the mail
-        os.system("openssl enc -a-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenhaMail.txt.enc -out contrasenhaMail.txt")
+        os.system("openssl enc -a-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_correo.txt.enc -out contrasenha_correo.txt")
         contrasenhaMail = open("contrasenhaMail.txt")
 		pwd = contrasenhaMail.read().replace('\n', '')
 		contrasenhaMail.close()

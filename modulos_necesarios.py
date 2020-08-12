@@ -33,10 +33,10 @@ conn_data = {'host':'localhost', 'database':'HIPS', 'user':'postgres'};
 #Recuperamos la contrasenha encriptada
 os.system("openssl enc -a-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenhaBD.txt.enc -out contrasenhaBD.txt")
 contrasenhaBD = open("contrasenhaBD.txt")
-pass = contrasenhaBD.read().replace('\n', '')
+passwd = contrasenhaBD.read().replace('\n', '')
 contrasenhaBD.close()
-os.system("rm -rf contrasenhaBD.txt)
-conn = psycopg2.connect(host=conn_data['host'], database=conn_data['database'], user=conn_data['user'], password=pass)
+os.system("rm -rf contrasenhaBD.txt")
+conn = psycopg2.connect(host=conn_data['host'], database=conn_data['database'], user=conn_data['user'], password=passwd)
 cursor = conn.cursor()
 #base de datos conectada          
 
