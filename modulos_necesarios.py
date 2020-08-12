@@ -29,7 +29,7 @@ mensj['To'] = "marcelobaezparaguay@gmail.com"#En este campo estaria el correo de
 
 #Actualmente estamos buscando un metodo de encriptacion para los datos, mientras utilizamos los datos en crudo
 #Valores para la conexion a la base de datos
-conn_data = {'host':'localhost', 'database':'HIPS', 'user':'postgres'};
+conn_data = {'host':'localhost', 'database':'hips2020baezoh', 'user':'HIPS2020'};
 #Recuperamos la contrasenha encriptada
 os.system("openssl enc -a-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenhaBD.txt.enc -out contrasenhaBD.txt")
 contrasenhaBD = open("contrasenhaBD.txt")
