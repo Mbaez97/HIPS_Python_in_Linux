@@ -1,4 +1,5 @@
 from modulos_necesarios import maxColaMail
+from enviar_mail import enviar_correo
 
 def comprueba_cola_correo():
 
@@ -13,18 +14,7 @@ def comprueba_cola_correo():
                 fecha = time.strftime("%d/%m/%Y")
                 hora = time.strftime("%H:%M:%S")
                 entrada = fecha + ' ---> ' + hora + '\n * ' + mensaje + '\n\n'
-                os.system("openssl enc -aes-256-cbc -d -in pass_file.txt.enc -out pass_file.txt -k PASS")
-                pass_file = open("pass_file.txt")
-                input_pass_file = pass_file.read().replace('\n','')
-                pass_file.close()
-                os.system("rm -rf pass_file.txt")
-                msg['Subject'] = "ALARMA EN HIDS!"
-                msg.attach(MIMEText(mensaje, 'plain'))
-                server = smtplib.SMTP('smtp.gmail.com: 587')
-                server.starttls()
-                server.login(msg['From'], input_pass_file)
-                server.sendmail(msg['From'], msg['To'], msg.as_string())
-                server.quit()
+                enviar_correo(mensaje,'Alarma HIPS')
                 archivo_cola = open('/var/spool/mqueue/mail_recibidos.txt','a')
                 archivo_cola.write(fecha + ' | ' + hora + ' | ' + 'From:' + msg['From'] + '\n')
                 archivo_cola.close()
