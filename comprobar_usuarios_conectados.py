@@ -1,3 +1,4 @@
+from modulos_necesarios import *
 from enviar_mail import enviar_correo
 def listar_usuario_conectado():
     cmd = "sudo who | awk '{print($1,$5)}' | sort | uniq | sed 's/(//g' | sed 's/)//g' | sed 's/:0//g'"
