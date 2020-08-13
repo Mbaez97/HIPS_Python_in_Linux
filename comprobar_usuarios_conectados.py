@@ -1,11 +1,11 @@
-from modulos_necesarios import *
 from enviar_mail import enviar_correo
+
 def comprobar_usuarios_conectados():
 
         #Extrae la lista de usuarios conectados actuales con su origen/direccion
         file=listar_usuario_conectado() # [[usuario1,dirrecion1],[usuario2,dirrecion2],.....]
          #Cantidad de filas de la tabla users
-        cursor.execute("SELECT COUNT(*) FROM users")
+        cursor.execute("SELECT COUNT(*) FROM usuarios")
         check = cursor.fetchone()
         nrows = check[0]
         #Se recorre linea por linea el archivo y se vuelve a quitar usuario y direccion
@@ -14,32 +14,15 @@ def comprobar_usuarios_conectados():
                user = line[0]
                address=line[1]
                 #Se recorre tabla users, revisando si coinciden los datos de los usuarios con los almacenados
-                for y in range(0, nrows):
-                        aviso = 1
-                        c = y + 1
-                        cursor.execute("SELECT * FROM users where id = %d " % c )
-                        check= cursor.fetchone()
-                        if(user == check[1] and address == check[2]): #check[2] es la ip permitida
-                                aviso = 0
+
+                cursor.execute("SELECT COUNT (*) FROM usuarios where usr = %s and addr=%s ", user, address)
                 #Si no coinciden los datos, se notifica
-                if(aviso == 1):
+                if(cursor.fetchone()==0):
                         mensaje = 'Usuario e IP no existen en la base de datos:\n' + user + '  [' + address + ']'
                         fecha = time.strftime("%d/%m/%Y")
                         hora = time.strftime("%H:%M:%S")
                         entrada = fecha + ' ---> ' + hora + '\n\n* ' + mensaje + '\n'
-                        enviar_correo(entrada, 'Alarma HIPS')
-                        #os.system("openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_correo.txt.enc -out contrasenha_correo.txt")
-                        #pass_file = open("contrasenha_correo.txt")
-                        #input_pass_file = pass_file.read().replace('\n','')
-                        #pass_file.close()
-                        #os.system("rm -rf contrasenha_correo.txt")
-                        #msg['Subject'] = "Alarma HIPS"
-                        #msg.attach(MIMEText(entrada, 'plain'))
-                        #server = smtplib.SMTP('smtp.gmail.com: 587')
-                        #server.starttls()
-                        #server.login(msg['From'], input_pass_file)
-                        #server.sendmail(msg['From'], msg['To'], msg.as_string())
-                        #server.quit()
+                        enviar_correo(mensaje, "ALARMA HIPS")
                         archivo_cola = open('/var/spool/mqueue/mail_recibidos.txt','a')
                         archivo_cola.write(fecha + ' | ' + hora + ' | ' + 'From:' + msg['From'] + '\n')
                         archivo_cola.close()
@@ -62,3 +45,4 @@ def listar_usuario_conectado():
         if len(usuario_conectado) != 0:
             lista_usuario_conectado.append(usuario_conectado)
     return lista_usuario_conectado   
+listar_usuario_conectado()    
