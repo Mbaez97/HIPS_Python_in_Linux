@@ -22,8 +22,11 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta
 N = 5 # MAximo intentos de login
+
 #Establecemos algunos valores que usaremos a lo largo de los distintos modulos del hips
 maxColaMail = 120 #Maxima cola de correos
+maxMailDia = 200
+
 #Establecemos como maximo 80 ya que si un proceso esta consumiendo mas del 80 porciento de la memoria consideramos como un proceso sospechoso 
 maxMemoria = 80
 
