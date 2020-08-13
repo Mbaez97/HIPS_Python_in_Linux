@@ -90,7 +90,36 @@ def carga_sniffers():
 		conn.commit()
 	lista_sniffers.close()
 
+def carga_usuarios():
+	try:
+		cursor = pgDB_conexion.cursor()   				   # conectamos a la base de datos
+		cursor.execute("DROP TABLE IF EXISTS usuarios") 	   # borramos tabla si existe
+		# creamos la tabla users donde se guardamos usuarios, ips, email, pass 
+		cursor.execute("CREATE TABLE users(id SERIAL, usr VARCHAR(30), addr VARCHAR(30), email VARCHAR(30), pass VARCHAR(30))") 
+	except:
+		print "No se pudo acceder a la base de datos"
+		return
+
+	delegator.run("openssl enc -aes-256-cbc -d -in lista_usuarios.txt.enc -out lista_usuarios.txt -k PASS")
+	archivo=open('lista_usuarios.txt','r') #Abre el archivo que contiene la lista de usuarios permitidos	
+
+	lineas = archivo.read().split(os.linesep)
+
+	for aux in lineas[:-1]:
+		if(aux != ''):
+			vec = aux.split(' ') #Parseamos los datos en un vector de 4 campos los cuales identifican cada uno de los datos a ser insertado
+			try:        #Insertamos los datos en la base de datos users
+				cursor.execute("INSERT INTO users ( usr, addr, email, pass) VALUES (%s,%s,%s,%s)",(vec[0],vec[1],vec[2],vec[3][:len(vec[3])]) )
+			except pgDB.Error as error:
+				print("Error: {}".format(error))
+			pgDB_conexion.commit()
+	archivo.close()
+	# Borramos el archivo txt despues de utilizarlo, SIEMPRE.
+	os.system("rm -rf lista_usuarios.txt")		
+
 carga_sniffers()
 carga_binarios(dir_binarios)
+carga_usuarios()
+
 conn.close()
 
