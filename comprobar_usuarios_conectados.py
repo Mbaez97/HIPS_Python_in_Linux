@@ -4,7 +4,7 @@ def comprobar_usuarios_conectados():
     #Extrae la lista de usuarios conectados actuales con su origen/direccion
     file=listar_usuario_conectado() # [[usuario1,dirrecion1],[usuario2,dirrecion2],.....]
     #Cantidad de filas de la tabla users
-    cursor.execute("SELECT COUNT(*) FROM usuarios")
+    cursor.execute("SELECT COUNT(*) FROM users")
     check = cursor.fetchone()
     nrows = check[0]
     #Se recorre linea por linea el archivo y se vuelve a quitar usuario y direccion
@@ -13,7 +13,7 @@ def comprobar_usuarios_conectados():
         user = line[0]
         address=line[1]
         #Se recorre tabla users, revisando si coinciden los datos de los usuarios con los almacenados
-        cursor.execute("SELECT COUNT (*) FROM usuarios where usr = %s and addr=%s ", user, address)
+        cursor.execute("SELECT COUNT (*) FROM users where usr = %s and addr=%s ", user, address)
         #Si no coinciden los datos, se notifica
         if(cursor.fetchone()==0):
             mensaje = 'Usuario e IP no existen en la base de datos:\n' + user + '  [' + address + ']'
@@ -30,7 +30,7 @@ def comprobar_usuarios_conectados():
 
     file.close()
 
-comprobar_ultimos_usuarios ()
+comprobar_usuarios_conectados()
 def listar_usuario_conectado():
     cmd = "sudo who | awk '{print($1,$5)}' | sort | uniq | sed 's/(//g' | sed 's/)//g' | sed 's/:0//g'"
     c = delegator.run(cmd)
