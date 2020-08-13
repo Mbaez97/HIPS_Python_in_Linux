@@ -23,9 +23,14 @@ from datetime import datetime, timedelta
 N = 6 # MAximo intentos de login
 #Establecemos algunos valores que usaremos a lo largo de los distintos modulos del hips
 maxColaMail = 120 #Maxima cola de correos
+
+#Valores globales para el uso de correo
 mensj = MIMEMultipart()
 mensj['From'] = "hips.baez.oh.2020@gmail.com"#Correo creado unicamente para este trabajo
 mensj['To'] = "marcelobaezparaguay@gmail.com"#En este campo estaria el correo del administrador que utilice el HIPS
+
+
+
 
 #Actualmente estamos buscando un metodo de encriptacion para los datos, mientras utilizamos los datos en crudo
 #Valores para la conexion a la base de datos
