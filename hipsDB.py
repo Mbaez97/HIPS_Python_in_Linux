@@ -51,13 +51,13 @@ def carga_binarios(dir_binarios):
 			lista_directorios = [ruta]#al ser un archivo preparamos la lista de direcciones como un elemento y es la direccion completa del archivo
 		
 		for direccion in lista_directorios:
-			cmd= "sudo md5sum"+str(direccion)
+			cmd= "sudo md5sum "+str(direccion)
 			#cadena=open(direccion).read()
 			#print("la cadena es ", cadena)
 			#archivo_temp = hashlib.md5((cadena.decode().encode('utf-32')))
 			#Obtenemos el md5 cambiando a formato str
 			#sum_md5 = str(archivo_temp.hexdigest())
-			sum_md5=delegator.run(cmd).out
+			sum_md5=delegator.run(cmd).out.split()[0]
 			try:
 				cursor.execute("INSERT INTO binarios_sistema(directorio, md5sum) VALUES (%s,%s)",(direccion, sum_md5))
 			except psycopg2.Error as error:
