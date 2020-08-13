@@ -1,13 +1,12 @@
-import delegator
 from enviar_mail import enviar_correo
 from modulos_necesarios import *
 from funciones_proteccion import mover_cuarentena, kill_command_name
 
 #Detectamos si se entro en modo promiscuo analizando el archivo var/log/messages
 def detectar_promiscuo_messages():
-    cmd = "sudo cat /var/log/messages | grep 'entered promiscuous mode' | awk '{print $7}' | sort | uniq"
-    c = delegator.run(cmd)
-    lista_device = c.out.split()
+	cmd = "sudo cat /var/log/messages | grep 'entered promiscuous mode' | awk '{print $7}' | sort | uniq"
+	c = delegator.run(cmd)
+	lista_device = c.out.split()
     for device in lista_device: # Se detecta dispositivo en modo promiscuo
     	#Se registra el log de alarma y se envia al mail al detectar que se ha entrado en modo promiscuo
 	    try:
