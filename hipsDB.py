@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import delegator
-import hashlib
+#import hashlib
 import psycopg2
 import os
 from os import listdir
