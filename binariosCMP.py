@@ -39,7 +39,7 @@ def binariosCMP(dir_binarios):
 					hora = time.strftime("%H:%M:%S")
 					entrada_binarios = fecha + '-->' + hora + '\n\n' + 'El archivo no se encuentra en la  base de datos ' + '\n * ' + ruta
 					hips_log = open('/var/log/hips/acces_hips.log', 'r+')
-					if not entrada_binarios in hips_log.read().split(os.linesep)
+					if not entrada_binarios in hips_log.read().split(os.linesep):
 						enviar_correo(entrada_binarios, 'Alarma HIPS')
 						mensaje_md5 = 'echo "\n El archivo ' + ruta + ' no existe en la base de datos, Revisar el correo del administrador"'
 						os.system(mensaje_md5)
