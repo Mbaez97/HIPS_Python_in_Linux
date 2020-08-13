@@ -1,5 +1,16 @@
 from enviar_mail import enviar_correo
-
+def listar_usuario_conectado():
+    cmd = "sudo who | awk '{print($1,$5)}' | sort | uniq | sed 's/(//g' | sed 's/)//g' | sed 's/:0//g'"
+    c = delegator.run(cmd)
+    lista = c.out.split('\n')
+    lista_usuario_conectado=[]
+    for elemento in lista:
+        usuario_conectado = elemento.split()
+        if len(usuario_conectado) == 1: # Trae solamente usuario, sin ubicacion, esta conectado desde local
+            usuario_conectado.append('localhost')
+        if len(usuario_conectado) != 0:
+            lista_usuario_conectado.append(usuario_conectado)
+    return lista_usuario_conectado
 def comprobar_usuarios_conectados():
     #Extrae la lista de usuarios conectados actuales con su origen/direccion
     file=listar_usuario_conectado() # [[usuario1,dirrecion1],[usuario2,dirrecion2],.....]
@@ -31,16 +42,5 @@ def comprobar_usuarios_conectados():
     file.close()
 
 comprobar_usuarios_conectados()
-def listar_usuario_conectado():
-    cmd = "sudo who | awk '{print($1,$5)}' | sort | uniq | sed 's/(//g' | sed 's/)//g' | sed 's/:0//g'"
-    c = delegator.run(cmd)
-    lista = c.out.split('\n')
-    lista_usuario_conectado=[]
-    for elemento in lista:
-        usuario_conectado = elemento.split()
-        if len(usuario_conectado) == 1: # Trae solamente usuario, sin ubicacion, esta conectado desde local
-            usuario_conectado.append('localhost')
-        if len(usuario_conectado) != 0:
-            lista_usuario_conectado.append(usuario_conectado)
-    return lista_usuario_conectado   
-listar_usuario_conectado()    
+   
+#listar_usuario_conectado()    
