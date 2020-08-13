@@ -98,7 +98,7 @@ def detectar_promiscuo_aud():
 		fecha = time.strftime("%d/%m/%y %X")
 		# Mensaje a agregar
 		mensaje = str(fecha) + ' :: ' +'Se ha detectado modo promiscuo causado por proceso' + str(command) +  '\n'
-	    f.write(mensaje)
+		f.write(mensaje)
 		f.close()
 		# Enviar email
 		enviar_correo(mensaje, 'Alarma HIPS')
