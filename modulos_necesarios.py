@@ -16,6 +16,7 @@ from os import listdir
 import pwd
 import random
 import time
+import delegator
 #import commands
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -23,6 +24,8 @@ from datetime import datetime, timedelta
 N = 5 # MAximo intentos de login
 #Establecemos algunos valores que usaremos a lo largo de los distintos modulos del hips
 maxColaMail = 120 #Maxima cola de correos
+#Establecemos como maximo 80 ya que si un proceso esta consumiendo mas del 80 porciento de la memoria consideramos como un proceso sospechoso 
+maxMemoria = 80
 
 #Valores globales para el uso de correo
 mensj = MIMEMultipart()
