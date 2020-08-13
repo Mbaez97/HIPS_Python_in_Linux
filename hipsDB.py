@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import delegator
 import hashlib
 import psycopg2
 import os
@@ -21,9 +22,13 @@ contrasenha_BD = open("contrasenha_BD.txt")
 connpass_BD = contrasenha_BD.read().replace('\n','')#copiamos el contenido del archivo que abrimos exceptuando los saltos y los espacios vacios
 contrasenha_BD.close()#cerramos el archivo
 os.system("rm -rf contrasenha_BD.txt")#Eliminamos la contraseña desencriptada
-conn_data = {'host':'localhost', 'database':'hips2020baezoh', 'user':'HIPS2020'};
-conn = psycopg2.connect(host=['host'], dbname=conn_data['database'], user=conn_data['user'], password=connpass_BD)
-
+	
+conn_data = {'database':'HIPS', 'user':'postgres'};
+conn = psycopg2.connect(host="localhost", dbname=conn_data['database'], user=conn_data['user'], password=connpass_BD)
+cursor=conn.cursor()
+cursor.execute("SELECT version();")
+record=cursor.fetchone()
+print("Te has conectado a - ",record," ")
 
 def carga_binarios(dir_binarios):
 	try:
@@ -46,9 +51,13 @@ def carga_binarios(dir_binarios):
 			lista_directorios = [ruta]#al ser un archivo preparamos la lista de direcciones como un elemento y es la direccion completa del archivo
 		
 		for direccion in lista_directorios:
-			archivo_temp = hashlib.md5((open(direccion)).read())
+			cmd= "sudo md5sum"+str(direccion)
+			#cadena=open(direccion).read()
+			#print("la cadena es ", cadena)
+			#archivo_temp = hashlib.md5((cadena.decode().encode('utf-32')))
 			#Obtenemos el md5 cambiando a formato str
-			sum_md5 = str(archivo_temp.hexdigest())
+			#sum_md5 = str(archivo_temp.hexdigest())
+			sum_md5=delegator.run(cmd).out
 			try:
 				cursor.execute("INSERT INTO binarios_sistema(directorio, md5sum) VALUES (%s,%s)",(direccion, sum_md5))
 			except psycopg2.Error as error:
@@ -74,11 +83,14 @@ def carga_sniffers():
 		#Insertamos en la base de datos donde tenemos el id y el nombre del sniff
 
 		try:
-			cursor.execute("INSERT INTO lista_sniffers (sniffer) VALUES (%s) ", (sniff))
-		except psycopg2.Error as error
+			print(sniff)
+			cursor.execute("INSERT INTO lista_sniffers (sniffer) VALUES (%s) ", (sniff, ))
+		except psycopg2.Error as error:
 			print("Error: {}".format(error))
 		conn.commit()
 	lista_sniffers.close()
 
-
+carga_sniffers()
+carga_binarios(dir_binarios)
 conn.close()
+
