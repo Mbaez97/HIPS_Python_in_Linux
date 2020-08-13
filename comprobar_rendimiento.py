@@ -3,7 +3,7 @@ import os
 from funciones_proteccion import kill_command
 
 #Procedemos a encontrar los procesos que superen el limite establecido de consumo ram y terminarlos
-def analizar_proecso():
+def analizar_proceso():
     porcentaje_limite = 80
     #Listamos los procesos que sobrepasen el limite de porcentaje de consumo ram
     cmd = """sudo ps aux | awk '{print $2, $4, $11}' | sort -k2r | awk '{if($2>"""+str(porcentaje_limite)+""") print($0)}'"""
