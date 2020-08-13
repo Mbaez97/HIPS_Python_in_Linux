@@ -90,10 +90,35 @@ def carga_sniffers():
 		conn.commit()
 	lista_sniffers.close()
 
+
+
+def carga_lista_blanca():
+	try:
+		cursor = conn.cursor()
+		cursor.execute("DROP TABLE IF EXISTS lista_blanca")
+		cursor.execute("CREATE TABLE lista_blanca(id SERIAL, nombre_programa VARCHAR)")
+		print("Se creo la tabla lista_blanca")
+	except:
+		print("Error al conectarse con la base de datos")
+		return
+	lista_blanca = open('lista_blanca.txt', 'r')
+	for fila in lista_blanca:
+		programa = len(fila) - 1
+		nombre_programa = fila[:programa]
+
+		try:
+			print(programa)
+			cursor.execute("INSERT INTO lista_blanca (nombre_programa) VALUES (%s)", (nombre_programa, ))
+		except psycopg2.Error as error:
+			print("Error: {}".format(error))
+		conn.commit()
+	lista_blanca.close()
+
+
 def carga_usuarios():
 	try:
-		cursor = pgDB_conexion.cursor()   				   # conectamos a la base de datos
-		cursor.execute("DROP TABLE IF EXISTS usuarios") 	   # borramos tabla si existe
+		cursor = conn.cursor()   				   # conectamos a la base de datos
+		cursor.execute("DROP TABLE IF EXISTS users") 	   # borramos tabla si existe
 		# creamos la tabla users donde se guardamos usuarios, ips, email, pass 
 		cursor.execute("CREATE TABLE users(id SERIAL, usr VARCHAR(30), addr VARCHAR(30), email VARCHAR(30), pass VARCHAR(30))") 
 	except:
@@ -110,9 +135,9 @@ def carga_usuarios():
 			vec = aux.split(' ') #Parseamos los datos en un vector de 4 campos los cuales identifican cada uno de los datos a ser insertado
 			try:        #Insertamos los datos en la base de datos users
 				cursor.execute("INSERT INTO users ( usr, addr, email, pass) VALUES (%s,%s,%s,%s)",(vec[0],vec[1],vec[2],vec[3][:len(vec[3])]) )
-			except pgDB.Error as error:
+			except psycopg2 as error:
 				print("Error: {}".format(error))
-			pgDB_conexion.commit()
+			conn.commit()
 	archivo.close()
 	# Borramos el archivo txt despues de utilizarlo, SIEMPRE.
 	os.system("rm -rf lista_usuarios.txt")		
