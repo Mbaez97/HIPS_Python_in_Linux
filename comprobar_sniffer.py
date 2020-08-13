@@ -55,8 +55,8 @@ def detectar_aplicacion_sniffers():
 			    # Enviar email
 			    enviar_correo(mensaje, 'Alarma HIPS')  
 			    #Procedemos a matar el proceso          	
-                kill_command_name(proceso)
-    			#Registramos la eliminacion del proceso en el log de prevencion y enviamos al mail
+                	    kill_command_name(proceso)
+    			    #Registramos la eliminacion del proceso en el log de prevencion y enviamos al mail
 			    f = open("/var/log/hids/prevencion_hids.log","a")
 			    # Fecha y hora
 			    fecha = time.strftime("%d/%m/%y %X")
@@ -66,8 +66,8 @@ def detectar_aplicacion_sniffers():
 			    f.close()
 			    # Enviar email
 			    enviar_correo(mensaje, 'PREVENCION HIPS')   			   
-                # Movemos a cuarentena
-                mover_cuarentena(proceso)
+			    # Movemos a cuarentena
+			    mover_cuarentena(proceso)
 			    #Registramos la cuarentena en el log de prevencion
 			    f = open("/var/log/hids/prevencion_hids.log","a")
 			    # Fecha y hora
@@ -102,9 +102,9 @@ def detectar_promiscuo_aud():
 	    f.close()
 	    # Enviar email
 	    enviar_correo(mensaje, 'Alarma HIPS')
-        # Se cierra el proceso causante
-        kill_command_name(command)
-		#Registramos la eliminacion del proceso en el log de prevencion y enviamos al mail
+            # Se cierra el proceso causante
+            kill_command_name(command)
+	    #Registramos la eliminacion del proceso en el log de prevencion y enviamos al mail
 	    f = open("/var/log/hids/prevencion_hids.log","a")
 	    # Fecha y hora
 	    fecha = time.strftime("%d/%m/%y %X")
@@ -114,9 +114,9 @@ def detectar_promiscuo_aud():
 	    f.close()
 	    # Enviar email
 	    enviar_correo(mensaje, 'PREVENCION HIPS')
-        # Se mueve a cuarentena proceso causante
-        mover_cuarentena(command)
-        #Registramos la cuarentena en el log de prevencion y enviamos al mail
+            # Se mueve a cuarentena proceso causante
+            mover_cuarentena(command)
+            #Registramos la cuarentena en el log de prevencion y enviamos al mail
 	    f = open("/var/log/hids/prevencion_hids.log","a")
 	    # Fecha y hora
 	    fecha = time.strftime("%d/%m/%y %X")
