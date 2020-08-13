@@ -7,13 +7,14 @@ def detectar_promiscuo_messages():
 	cmd = "sudo cat /var/log/messages | grep 'entered promiscuous mode' | awk '{print $7}' | sort | uniq"
 	c = delegator.run(cmd)
 	lista_device = c.out.split()
-    for device in lista_device: # Se detecta dispositivo en modo promiscuo
-    	#Se registra el log de alarma y se envia al mail al detectar que se ha entrado en modo promiscuo
-	    try:
-	        os.mkdir('/var/log/hids')
+	#Se detecta dispositivo en modo promiscuo
+    for device in lista_device:
+		#Se registra el log de alarma y se envia al mail al detectar que se ha entrado en modo promiscuo
+		try:
+	    	os.mkdir('/var/log/hids')
 	    except OSError as e:
 	        if e.errno != errno.EEXIST:
-	            raise
+	        	raise
 	    # Crear o continuar archivo
 	    f = open("/var/log/hids/alarmas_hids.log","a")
 	    # Fecha y hora
