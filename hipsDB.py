@@ -97,7 +97,7 @@ def carga_usuarios():
 		# creamos la tabla users donde se guardamos usuarios, ips, email, pass 
 		cursor.execute("CREATE TABLE users(id SERIAL, usr VARCHAR(30), addr VARCHAR(30), email VARCHAR(30), pass VARCHAR(30))") 
 	except:
-		print "No se pudo acceder a la base de datos"
+		print("No se pudo acceder a la base de datos")
 		return
 
 	delegator.run("openssl enc -aes-256-cbc -d -in lista_usuarios.txt.enc -out lista_usuarios.txt -k PASS")
