@@ -35,3 +35,27 @@ def cambiar_contrasena(nombre_usuario):
 def cerrar_sesion(nombre_usuario):
     cmd = "pkill -KILL -u " + str(nombre_usuario)
     delegator.run(cmd)
+
+# Mover a cuarenta un archivo
+def mover_cuarentena(path_archivo):
+    # Quita todos los permisos
+    cmd = "sudo chmod a-wxr " + str(path_archivo)
+    delegator.run(cmd)
+    # Crea el directorio de cuarentena
+    cmd = "sudo mkdir /tmp/.cuarentena"
+    delegator.run(cmd)
+    # Mueve al directorio de cuarentena
+    cmd = "sudo mv "+str(path_archivo) +" /tmp/.cuarentena"
+    delegator.run(cmd)
+
+# Kill proceso por pid
+def kill_command(pid):
+    cmd="sudo kill -9 " + str(pid)
+    delegator.run(cmd)
+    
+# Kill proceso por name
+def kill_command_name(command):
+    cmd = "sudo pidof " + command
+    c = delegator.run(cmd)
+    pid = c.out
+    kill_command(pid)    
