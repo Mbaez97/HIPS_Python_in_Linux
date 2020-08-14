@@ -1,4 +1,4 @@
-import delegator
+from modulos_necesarios import *
 from funciones_proteccion import bloquear_ip
 
 # Retorna las ips que sobrepasan la cantidad limite de operaciones dns por minuto
