@@ -23,3 +23,5 @@ def comprueba_cola_correo():
                 archivo.close()
                 mensaje_pass = 'echo "\nCola de correo llena! Revisar correo para mas info.\n" '
                 os.system(mensaje_pass)
+
+comprueba_cola_correo()

@@ -133,3 +133,5 @@ def acces_logCMP():
 
 
 		pass
+
+acces_logCMP()

@@ -59,3 +59,10 @@ def kill_command_name(command):
     c = delegator.run(cmd)
     pid = c.out
     kill_command(pid)    
+
+# Bloquea una ip por iptables
+def bloquear_ip(ip_a_bloquear):
+    cmd="sudo iptables -I INPUT -s "+ str(ip_a_bloquear) +" -j REJECT"
+    delegator.run(cmd)
+    cmd="sudo service iptables save"
+    delegator.run(cmd)
