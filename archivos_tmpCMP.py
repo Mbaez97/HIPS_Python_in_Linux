@@ -25,8 +25,6 @@ def archivos_tmpCMP():
 
 					#avisamos en la terminal que existe un ejecutable sospechoso en /tmp
 					os.system('echo "Ejecutable detectado, Revisar el correo del administrador"')
-
-					#establecer un mensaje a la segunda maquina
 				hips_log.close()
 	#Aplicamos el mismo proceso para el directorio /var/tmp
 	for dir_path,_,nm_archivo in os.walk('/var/tmp'):
@@ -53,8 +51,6 @@ def archivos_tmpCMP():
 
 					#avisamos en la terminal que existe un ejecutable sospechoso en /tmp
 					os.system('echo "Ejecutable detectado, Revisar el correo del administrador"')
-
-					#establecer un mensaje a la segunda maquina
 				hips_log.close()
 
 archivos_tmpCMP()

@@ -52,12 +52,7 @@ def acces_logCMP():
 					#bloqueamos a la ip sospechosa
 					os.system('iptables -A -INPUT -s ' + columna_split[0] + ' -j DROP')
 					ip_bloqueadas.append(columna_split[0])	
-					#debemos bloquear nuestra ip desde la maquina remota
-
-					#ver como hacer esta parte
-
-
-					#
+					
 	contador_ip_404 = [[x, ip_404.count(x)] for x in set(ip_404)]
 	contador_ip_login = [[x, ip_login.count(x)] for x in set(ip_login)]
 
@@ -91,10 +86,7 @@ def acces_logCMP():
 			#Bloqueamos el trafico de entrada de la ip
 			os.system('iptables -A -INPUT -s' + temp[0][1] + ' -j DROP')
 			ip_bloqueadas.append(temp[0][1])
-			#debemos bloquear nuestra ip desde la maquina remota
-
-			#ver como hacer esta parte
-			#
+			
 	for temp in contador_ip_404:
 		if temp[1] > N:
 			fecha = time.strftime("%d/%m/%Y")
@@ -125,10 +117,7 @@ def acces_logCMP():
 			#Bloqueamos el trafico de entrada de la ip
 			os.system('iptables -A -INPUT -s' + temp[0][1] + ' -j DROP')
 			ip_bloqueadas.append(temp[0][1])
-			#debemos bloquear nuestra ip desde la maquina remota
-
-			#ver como hacer esta parte
-			#			
+						
 
 
 

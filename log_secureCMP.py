@@ -31,8 +31,7 @@ def log_secureCMP():
 				bann_ip.append(aux[0][1])
 				#Bloqueamos el trafico de la ip
 				os.system('iptables -A INPUT -s ' + aux[0][1] + ' -j DROP')
-				#Falta el bloqueo por parte de la otra ip, para resolverlo planteamo el acceso desde otra maquina virtual remota con ip estatica para facilitar 
-				#Falta implementacion
+				
 			hips_log.close()
 
 	#Proceso similar al anterios, explicado anteriormente
