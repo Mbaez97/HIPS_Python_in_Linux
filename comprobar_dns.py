@@ -55,3 +55,5 @@ def analisis_ddos_dns():
 		f.close()
 		# Enviar email
 		enviar_correo(mensaje, 'PREVENCION HIPS')
+
+analisis_ddos_dns()

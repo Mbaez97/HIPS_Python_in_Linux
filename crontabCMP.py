@@ -1,7 +1,7 @@
 from modulos_necesarios import *
 from enviar_mail import enviar_correo
 
-def comprueba_cron():
+def crontabCMP():
 	#cargamos el archivo donde tenemos las tareas
 	os.system("openssl enc -aes-256-cbc -d -in tareas.txt.enc -out tareas.txt")
 	tareas = open('tareas.txt', 'r')
@@ -32,3 +32,5 @@ def comprueba_cron():
 	os.system("rm -rf tareas.txt tareas_cron.txt")
 		
 	
+
+crontabCMP()

@@ -57,4 +57,5 @@ def archivos_tmpCMP():
 					#establecer un mensaje a la segunda maquina
 				hips_log.close()
 
+archivos_tmpCMP()
 

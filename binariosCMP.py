@@ -45,3 +45,5 @@ def binariosCMP(dir_binarios):
 						os.system(mensaje_md5)
 					hips_log.close()
 	pass
+
+binariosCMP()

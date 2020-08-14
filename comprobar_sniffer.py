@@ -25,7 +25,7 @@ def detectar_promiscuo_messages():
 		f.close()
 		# Enviar email
 		enviar_correo(mensaje, 'Alarma HIPS')
-	detectar_promiscuo_messages()	    
+detectar_promiscuo_messages()	    
 
 #Comparamos con la lista de aplicaciones sniffers conocidas de la base de datos
 def detectar_aplicacion_sniffers():

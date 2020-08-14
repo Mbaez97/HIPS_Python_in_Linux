@@ -76,7 +76,7 @@ def log_secureCMP():
 					enviar_correo(entrada_root_log, 'Alarma HIPS')
 				hips_log.close()
 				
-			
+log_secureCMP()			
 
 
 
