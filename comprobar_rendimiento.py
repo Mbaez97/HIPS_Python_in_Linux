@@ -53,3 +53,4 @@ def analizar_proceso():
 			    f.close()
 			    # Enviar email
 			    enviar_correo(mensaje, 'PREVENCION HIPS')
+analizar_proceso()  
