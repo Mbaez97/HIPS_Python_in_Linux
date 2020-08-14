@@ -46,4 +46,4 @@ def binariosCMP(dir_binarios):
 					hips_log.close()
 	pass
 
-binariosCMP()
+#binariosCMP()
