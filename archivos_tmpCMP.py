@@ -1,4 +1,4 @@
-from modulos_necesario import *
+from modulos_necesarios import *
 from enviar_mail import enviar_correo
 def archivos_tmpCMP():
 	for dir_path,_,nm_archivo in os.walk('/tmp'):
