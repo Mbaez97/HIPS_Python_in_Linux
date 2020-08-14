@@ -14,9 +14,11 @@ def binariosCMP(dir_binarios):
 				list_dir = [direccion]
 		#Se recorre el vector y se obtiene ela firma md5 de cada archivo y comparamos con la base de datos
 		for ruta in list_dir:
-				temp = hashlib.md5((open(ruta)).read())
-				md5sum = str(temp.hexdigest())
-				cursor.execute("SELECT directorio FROM binarios_sistema WHERE directorio = %s", (ruta))
+				cmd = 'sudo md5sum ' + str(ruta)
+				sum_md5=delegator.run(cmd).out.split()[0]
+				#temp = hashlib.md5((open(ruta)).read())
+				#md5sum = str(temp.hexdigest())
+				cursor.execute("SELECT directorio FROM binarios_sistema WHERE directorio = %s", (sum_md5))
 				#Comprobamos si el archivo existe en la base de datos
 				existe = cursor.fetchclone()
 				if isinstance(existe, tuple):
