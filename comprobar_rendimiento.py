@@ -15,11 +15,11 @@ def analizar_proceso():
 	#Realizamos comparaciones para ver si es un proceso normal
     for command in lista_proceso_ram:
         if len(command) != 0:
-            command_name = command.split()[2]
-            command_pid = command.split()[0]
+            command_name = command.split()[2].split('/')[-1] #El nombre del proceso
+            command_pid = command.split()[0]# pid
             blanca = 0
             for command_blanca in lista_proceso_permitido:
-                if(command_name == command_blanca[0]):
+                if(command_name == command_blanca):
                     blanca = 1 #Es un proceso seguro
                     break
             if blanca == 0 : # No se encuentra en la lista blanca y consume alta ram
@@ -40,10 +40,10 @@ def analizar_proceso():
 			    # Enviar email
 			    enviar_correo(mensaje, 'Alarma HIPS')	
 			    #Matamos el proceso
-                kill_command(command_pid)
+                	    kill_command(command_pid)
 
-                #Registramos el log de prevencion
-	            # Crear o continuar archivo
+                	    #Registramos el log de prevencion
+	                    # Crear o continuar archivo
 			    f = open("/var/log/hids/prevencion_hids.log","a")
 			    # Fecha y hora
 			    fecha = time.strftime("%d/%m/%y %X")
@@ -53,3 +53,4 @@ def analizar_proceso():
 			    f.close()
 			    # Enviar email
 			    enviar_correo(mensaje, 'PREVENCION HIPS')
+analizar_proceso()  
