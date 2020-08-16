@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Manual HIPS</h1>
+    <h3>Sistema de prevencion de intrusos para la materia Sistemas Operativos 2 de la carrera de Ingenieria Informatica<br>Para la correcta instalacion debemos tener la version de CentOS mas reciente, ademas de contar con el interprete de python con sus respectivos modulos psycopg2 smtplib<br>Para poder realizar las distintas pruebas seleccionamos cualquiera de las 9 opciones, a continuacion describimos el funcionamiento de cada una</h3>
+    <h5>1- Comprobacion de los binarios del sistema, en esta opcion el programa verifica comparando con la base de datos si existe algun cambio en la firma md5 del archivo<br>
+    	2- Verificacion de los usuarios conectados, en esta opcion el programa verifica los usuarios locales conectados asi como los usuarios remotos<br>
+    	3- Examinar logs del sistema, comprueba los distintos logs del sistema en busca de patrones de acceso indebidos<br>
+    	4- Verificar la cola de mails, revisa el tamaño de la cola de mails y compara con un valor maximo<br>
+    	5- Procesos con alto consumo de memoria, esta opcion procede a analizar los procesos del sistema donde un proceso que este consumiendo mas del 80% de la memoria, automaticamente matamos el proceso. Ademas contamos con una lista blanca para procesos que pueden tener una gran carga como systemctl u otros mas<br>
+    	6- Verificacion de los directorios temporales, se busca procesos o scripts con nombres extraños ubicados en los mismos<br>
+    	7- Control de ataque DOS, en caso de un ataque DOS el HIPS detecta y bloquea la ip del atacante<br>
+    	8- Examinacion de archivos ejecutandose como CRON, los archivos cron son los demonios(procesos en segundo plano) que estan programados en cierto intervalo de tiempo, como este tipo de archivo puede ser utilizado como puerta trasera verificamos<br>
+    	9-Verificacion de intentos de acceso no valido, verificamos los intentos de acceso local como remoto del sistema, donde si dicho usuario supera los limites de intento de acceso se le reasigna una contraseña al azar que termina guardandose en la base de datos.
+
+
+
+    </h5>
+{% endblock content %}

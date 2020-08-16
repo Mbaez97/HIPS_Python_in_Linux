@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1 class="text-center font-weight-bold" style="color: blue;text-decoration: underline;font-style: italic;">HIPS_2020 {% if username %}
+        {{username | capitalize}}
+    {% endif %} </h1>
+    <div class="list-group">
+  <a href=" {{url_for('home')}} " class="list-group-item list-group-item-action active">
+    Home
+  </a>
+  <a href="{{url_for('lista_resultado', id='1', titulo='1- binariosCMP')}}" class="list-group-item list-group-item-action">1- Comprobar Binarios del Sistema</a>
+  <a href="{{url_for('lista_resultado', id='2', titulo='2- comprobar_usuarios_conectados')}}" class="list-group-item list-group-item-action">2- Verificar usuarios conectados</a>
+  <a href="{{url_for('lista_resultado', id='3', titulo='3- comprobar_sniffers')}}" class="list-group-item list-group-item-action">3- Verificar sniffers y control de modo promiscuo</a>
+  <a href="{{url_for('lista_resultado', id='4', titulo='4- examinar_logs')}}" class="list-group-item list-group-item-action">4- Comprobar Log del Sistema</a>
+  <a href="{{url_for('lista_resultado', id='5', titulo='5- comprobar_cola_mails')}}" class="list-group-item list-group-item-action">5- Verificar cola de mails</a>
+  <a href="{{url_for('lista_resultado', id='6', titulo='6- comprobar_rendimiento')}}" class="list-group-item list-group-item-action">6- Comprobar Memoria</a>
+  <a href="{{url_for('lista_resultado', id='7', titulo='7 -comprobar_dns')}}" class="list-group-item list-group-item-action">7- Comprobar Ataque DOS</a>
+  <a href="{{url_for('lista_resultado', id='8', titulo='8- crontabCMP')}}" class="list-group-item list-group-item-action">8- Examinar archivos cron</a>
+  <a href="{{url_for('lista_resultado', id='9', titulo='9- Comprobar todo lo anterior')}}" class="list-group-item list-group-item-action">9- Comprobar todo lo anterior</a>
+  <a href="{{url_for('home')}}" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">HIPS Baez OH</a>
+</div>
+{% endblock %}

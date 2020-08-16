@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="card">
+  <div class="card-header">
+    Listado de {{titulo}}
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      {% for i in data %}
+        <p>{{ i }}</p>
+      {% endfor %}
+      <footer class="blockquote-footer">HIPS <cite title="Source Title">Baez OH</cite></footer>
+    </blockquote>
+  </div>
+</div>
+{% endblock content %}
