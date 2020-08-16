@@ -21,7 +21,7 @@ login_manager = LoginManager()
 login_manager.login_view = '/login'
 login_manager.init_app(app)
 
-mensaje_url = "/home/marcelojulianbaezferreira/Documentos/HIPS_2020_SO/retorno_web"
+mensaje_url = "/home/marcelojulianbaezferreira/Documentos/HIPS_2020_SO/returnweb"
 
 @login_manager.user_loader
 def load_user(user_id):
