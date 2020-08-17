@@ -139,7 +139,7 @@ def carga_usuarios():
 				cursor.execute("INSERT INTO users ( usr, addr, email, pass) VALUES (%s,%s,%s,%s)",(vec[0],vec[1],vec[2],vec[3]) )
 				#[:len(vec[3])]
 				print("Se cargo con exito el usuario")
-			except psycopg2 as error:
+			except psycopg2.Error as error:
 				print("Error: {}".format(error))
 			conn.commit()
 	archivo.close()
