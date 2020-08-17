@@ -25,7 +25,8 @@ def comprobar_usuarios_conectados():
         user = line[0]
         address=line[1]
         #Se recorre tabla users, revisando si coinciden los datos de los usuarios con los almacenados
-        cursor.execute("SELECT COUNT (*) FROM users where usr = %s and addr=%s ", user, address)
+        cursor.execute("SELECT COUNT (*) FROM users where usr = %s and addr=%s ", user)
+        cursor.execute("SELECT COUNT (*) FROM users where addr = %s", address)
         #Si no coinciden los datos, se notifica
         if(cursor.fetchone()==0):
             mensaje = 'Usuario e IP no existen en la base de datos:\n' + user + '  [' + address + ']'

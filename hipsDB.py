@@ -15,7 +15,7 @@ dir_binarios = ['/etc/passwd','/etc/shadow','/bin','/usr/bin','/usr/sbin']
 #Falta encriptacion(RESUELTO CON OPENSSL)
 #Encriptacion con open ssl
 #Recuperamos el archivo donde se encuentran las contraseñas cifradas en el servidor, en este caso la contraseña de la base de datos
-os.system("openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_BD.txt.enc -out contrasenha_BD.txt")
+os.system("sudo openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/contrasenha_BD.txt.enc -out contrasenha_BD.txt")
 	
 #Al desencriptar la contraseña debemos ir a la terminal donde estamos corriendo el script en python para poder colocar la contraseña de desencriptacion
 contrasenha_BD = open("contrasenha_BD.txt")
@@ -120,12 +120,12 @@ def carga_usuarios():
 		cursor = conn.cursor()   				   # conectamos a la base de datos
 		cursor.execute("DROP TABLE IF EXISTS users") 	   # borramos tabla si existe
 		# creamos la tabla users donde se guardamos usuarios, ips, email, pass 
-		cursor.execute("CREATE TABLE users(id SERIAL, usr VARCHAR(30), addr VARCHAR(30), email VARCHAR(30), pass VARCHAR(30))") 
+		cursor.execute("CREATE TABLE users(id SERIAL, usr VARCHAR, addr VARCHAR, email VARCHAR, pass VARCHAR)") 
 	except:
 		print("No se pudo acceder a la base de datos")
 		return
 
-	delegator.run("openssl enc -aes-256-cbc -d -in lista_usuarios.txt.enc -out lista_usuarios.txt -k PASS")
+	delegator.run("sudo openssl enc -aes-256-cbc -d -in /home/marcelojulianbaezferreira/contrasenhas_cifradas/lista_usuarios.txt.enc -out lista_usuarios.txt")
 	archivo=open('lista_usuarios.txt','r') #Abre el archivo que contiene la lista de usuarios permitidos	
 
 	lineas = archivo.read().split(os.linesep)
