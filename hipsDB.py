@@ -136,7 +136,7 @@ def carga_usuarios():
 		if(aux != ''):
 			vec = aux.split(' ') #Parseamos los datos en un vector de 4 campos los cuales identifican cada uno de los datos a ser insertado
 			try:        #Insertamos los datos en la base de datos users
-				cursor.execute("INSERT INTO users ( usr, addr, email, pass) VALUES (%s,%s,%s,%s)",(vec[0],vec[1],vec[2],vec[3]) )
+				cursor.execute("INSERT INTO users( usr, addr, email, pass) VALUES (%s,%s,%s,%s)",(vec[0],vec[1],vec[2],vec[3][:len(vec[3])]) )
 				#[:len(vec[3])]
 				print("Se cargo con exito el usuario")
 			except psycopg2.Error as error:
