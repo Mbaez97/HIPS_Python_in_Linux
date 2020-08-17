@@ -36,7 +36,7 @@ def carga_binarios(dir_binarios):
 		#Eliminamos y volvemos a crear la tabla en la base de datos, mas facil que identificar con ids o otras cosas
 		cursor.execute("DROP TABLE IF EXISTS binarios_sistema")
 		cursor.execute("CREATE TABLE binarios_sistema(id SERIAL, directorio VARCHAR, md5sum VARCHAR)")
-		print("Se creo la tabla en la base de datos")
+		print("Se creo la tabla binarios_sistema")
 	except:
 		print("Error al conectarse con la base de datos")
 		return
@@ -70,7 +70,7 @@ def carga_sniffers():
 		cursor = conn.cursor()
 		cursor.execute("DROP TABLE IF EXISTS lista_sniffers")#Si existe la tabla la eliminamos, misma logica que utilizamos en la carga de binarios
 		cursor.execute("CREATE TABLE lista_sniffers(id SERIAL, sniffer VARCHAR)")#Creamos la tabla
-		print("Se creo la tabla en la base de datos")
+		print("Se creo la tabla lista_sniffers")
 	except:
 		print("Error al conectarse con la base de datos")
 		return
@@ -109,6 +109,7 @@ def carga_lista_blanca():
 		try:
 			print(programa)
 			cursor.execute("INSERT INTO lista_blanca (nombre_programa) VALUES (%s)", (nombre_programa, ))
+			print(nombre_programa)
 		except psycopg2.Error as error:
 			print("Error: {}".format(error))
 		conn.commit()
@@ -121,6 +122,7 @@ def carga_usuarios():
 		cursor.execute("DROP TABLE IF EXISTS users") 	   # borramos tabla si existe
 		# creamos la tabla users donde se guardamos usuarios, ips, email, pass 
 		cursor.execute("CREATE TABLE users(id SERIAL, usr VARCHAR, addr VARCHAR, email VARCHAR, pass VARCHAR)") 
+		print("Se creo la tabla users")
 	except:
 		print("No se pudo acceder a la base de datos")
 		return
@@ -135,6 +137,7 @@ def carga_usuarios():
 			vec = aux.split(' ') #Parseamos los datos en un vector de 4 campos los cuales identifican cada uno de los datos a ser insertado
 			try:        #Insertamos los datos en la base de datos users
 				cursor.execute("INSERT INTO users ( usr, addr, email, pass) VALUES (%s,%s,%s,%s)",(vec[0],vec[1],vec[2],vec[3][:len(vec[3])]) )
+				print("Se cargo con exito el usuario")
 			except psycopg2 as error:
 				print("Error: {}".format(error))
 			conn.commit()
