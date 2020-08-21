@@ -121,7 +121,7 @@ def carga_usuarios():
 		cursor = conn.cursor()   				   # conectamos a la base de datos
 		cursor.execute("DROP TABLE IF EXISTS users") 	   # borramos tabla si existe
 		# creamos la tabla users donde se guardamos usuarios, ips, email, pass 
-		cursor.execute("CREATE TABLE users(id SERIAL, usr VARCHAR, addr VARCHAR, email VARCHAR, pass VARCHAR)") 
+		cursor.execute("CREATE TABLE users(id SERIAL, usr VARCHAR, addr VARCHAR)") 
 		print("Se creo la tabla users")
 	except:
 		print("No se pudo acceder a la base de datos")
@@ -135,8 +135,8 @@ def carga_usuarios():
 	for aux in lineas[:-1]:
 		if(aux != ''):
 			vec = aux.split(' ') #Parseamos los datos en un vector de 4 campos los cuales identifican cada uno de los datos a ser insertado
-			try:        #Insertamos los datos en la base de datos users
-				cursor.execute("INSERT INTO users( usr, addr, email, pass) VALUES (%s,%s,%s,%s)",(vec[0],vec[1],vec[2],vec[3][:len(vec[3])], ) )
+			try:
+				cursor.execute("INSERT INTO users(usr, addr) VALUES (%s,%s)",(vec[0],vec[1]) )
 				#[:len(vec[3])]
 				print("Se cargo con exito el usuario")
 			except psycopg2.Error as error:
